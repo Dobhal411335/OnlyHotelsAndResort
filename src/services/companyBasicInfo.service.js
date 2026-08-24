@@ -3,12 +3,12 @@ import connectDB from "@/lib/connectDB";
 import CompanyBasicInfo from "@/models/Admin/CompanyBasicInfo";
 
 const FALLBACK_METADATA = {
-  siteName: "",
+  siteName: "Example Company",
   title: "",
   description: "",
   ogDescription: "",
   keywords: [],
-  domain: "",
+  domain: process.env.NEXT_PUBLIC_SITE_URL,
   ogImage: "",
 };
 
