@@ -1,0 +1,370 @@
+---
+description: Rules for building and maintaining the public website frontend.
+globs:
+  - "src/app/(website)/**"
+  - "src/components/website/**"
+  - "src/features/**"
+alwaysApply: false
+---
+
+# Frontend Rules
+
+Before generating code, read:
+
+- docs/PROJECT_RULES.md
+- docs/DESIGN_SYSTEM.md
+- docs/UI_GUIDELINES.md
+
+Do not violate these documents.
+
+---
+
+# Objective
+
+Build a premium, calm, luxurious retreat website.
+
+The website should feel inspired by:
+
+- OnlyHotel
+- Aman Resorts
+- Six Senses
+- Apple
+- Notion
+
+Do NOT copy layouts.
+
+Only follow their design philosophy.
+
+---
+
+# Design Philosophy
+
+Every page should feel:
+
+- Calm
+- Spacious
+- Elegant
+- Premium
+- Natural
+
+Avoid:
+
+- Busy layouts
+- Bright colours
+- Heavy shadows
+- Flashy animations
+- Corporate appearance
+
+Whitespace is part of the design.
+
+---
+
+# Layout Rules
+
+Every page should follow:
+
+Navbar
+
+↓
+
+Hero
+
+↓
+
+Content Sections
+
+↓
+
+CTA
+
+↓
+
+Footer
+
+Unless the page has a special layout.
+
+---
+
+# Typography
+
+Heading
+
+Cormorant Garamond
+
+Body
+
+Manrope
+
+Labels
+
+Inter
+
+Maintain typography hierarchy.
+
+Never invent new font sizes.
+
+---
+
+# Colour Rules
+
+Always use colours from DESIGN_SYSTEM.md.
+
+Never hardcode hex colours.
+
+Use CSS variables.
+
+---
+
+# Components
+
+Prefer existing shared components.
+
+Reuse:
+
+Container
+
+Section
+
+SectionTitle
+
+PageHeader
+
+Button
+
+Card
+
+ImageCard
+
+CTA
+
+GalleryGrid
+
+QuoteBlock
+
+Never duplicate components.
+
+---
+
+# Tailwind Rules
+
+Use TailwindCSS only.
+
+No inline styles.
+
+No CSS modules.
+
+No styled-components.
+
+---
+
+# Images
+
+Use next/image.
+
+Always provide:
+
+alt
+
+width
+
+height
+
+priority only for hero images
+
+Use Cloudinary URLs when images come from CMS.
+
+---
+
+# Buttons
+
+Use shadcn/ui Button.
+
+Allowed variants:
+
+Primary
+
+Secondary
+
+Outline
+
+Ghost
+
+Danger
+
+Do not create custom button implementations.
+
+---
+
+# Forms
+
+Use:
+
+React Hook Form
+
+Zod
+
+shadcn/ui form components
+
+Every form must include:
+
+Loading state
+
+Validation
+
+Error messages
+
+Success feedback
+
+---
+
+# Animations
+
+Use Framer Motion only.
+
+Allowed:
+
+Fade
+
+Slide
+
+Scale
+
+Reveal
+
+Parallax
+
+Hover
+
+Avoid:
+
+Bounce
+
+Rotate
+
+Elastic
+
+Continuous animation
+
+Animation should support usability.
+
+---
+
+# Responsive Rules
+
+Desktop first.
+
+Support:
+
+Desktop
+
+Laptop
+
+Tablet
+
+Mobile
+
+Never allow horizontal scrolling.
+
+Maintain spacing consistency.
+
+---
+
+# Accessibility
+
+Use semantic HTML.
+
+Provide:
+
+Alt text
+
+Labels
+
+Keyboard navigation
+
+Visible focus state
+
+ARIA attributes where required.
+
+---
+
+# Performance
+
+Prefer Server Components.
+
+Only use Client Components for:
+
+Forms
+
+Animations
+
+Dialogs
+
+Search
+
+Interactive UI
+
+Use lazy loading when appropriate.
+
+Optimise images.
+
+---
+
+# SEO
+
+Use Next.js Metadata API.
+
+Every public page should have:
+
+Title
+
+Description
+
+Open Graph image (future-ready)
+
+Canonical URL support
+
+Do not install external SEO libraries.
+
+---
+
+# Code Quality
+
+Keep components under ~200 lines when practical.
+
+Extract reusable logic.
+
+Avoid duplicated JSX.
+
+Use descriptive names.
+
+Avoid deeply nested components.
+
+---
+
+# Never Do
+
+Do not redesign existing UI without instruction.
+
+Do not change global colours.
+
+Do not create new spacing systems.
+
+Do not introduce new component libraries.
+
+Do not use Bootstrap.
+
+Do not use Material UI.
+
+Do not hardcode website content.
+
+Do not duplicate existing components.
+
+---
+
+# Final Rule
+
+Every page should feel like it belongs to the same premium product.
+
+Consistency is more important than creativity.
+
+When in doubt, reuse existing patterns.

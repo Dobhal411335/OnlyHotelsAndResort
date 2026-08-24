@@ -1,0 +1,201 @@
+---
+description: Rules for backend development using Next.js Route Handlers, MongoDB, Cloudinary, Brevo and Winston.
+globs:
+  - "src/app/api/**"
+  - "src/lib/**"
+  - "src/models/**"
+  - "src/services/**"
+  - "src/middleware/**"
+  - "src/actions/**"
+alwaysApply: false
+---
+
+# Backend Rules
+
+Before generating backend code, always read:
+
+- docs/PROJECT_RULES.md
+- docs/ARCHITECTURE.md
+- docs/DEVELOPMENT_GUIDE.md
+
+Never violate these documents.
+
+---
+
+# Backend Philosophy
+
+The backend should be:
+
+- Clean
+- Modular
+- Reusable
+- Predictable
+- Easy to maintain
+
+Keep API routes thin.
+
+Move business logic into services.
+
+Never place complex logic inside Route Handlers.
+
+---
+
+# Tech Stack
+
+Framework
+
+Next.js App Router
+
+API
+
+Route Handlers
+
+Database
+
+MongoDB
+
+ODM
+
+Mongoose
+
+Authentication
+
+JWT
+
+Password Hashing
+
+bcryptjs
+
+Validation
+
+Zod
+
+Emails
+
+Brevo
+
+Images
+
+Cloudinary
+
+Logger
+
+Winston
+
+---
+
+# Never Use
+
+Express
+
+Prisma
+
+Socket.io
+
+Redis
+
+Role Based Authentication
+
+Passport.js
+
+GraphQL
+
+MVC Folder Structure
+
+Bootstrap
+
+TypeScript
+
+---
+
+# Folder Responsibilities
+
+app/api/
+
+Only Route Handlers.
+
+No business logic.
+
+---
+
+services/
+
+Business logic.
+
+Database operations.
+
+Cloudinary.
+
+Brevo.
+
+Authentication.
+
+---
+
+models/
+
+Mongoose Schemas only.
+
+Never place queries here.
+
+---
+
+lib/
+
+Configurations.
+
+Database connection.
+
+Cloudinary configuration.
+
+JWT helpers.
+
+Logger.
+
+Environment validation.
+
+---
+
+middleware/
+
+Authentication middleware only.
+
+---
+
+utils/
+
+Reusable helper functions.
+
+No feature-specific logic.
+
+---
+
+# Route Handler Rules
+
+Each Route Handler should:
+
+Validate request
+
+↓
+
+Call service
+
+↓
+
+Return response
+
+Nothing else.
+
+---
+
+Example
+
+Bad
+
+```js
+// database query
+// cloudinary upload
+// email sending
+// validation
+
+inside route handler

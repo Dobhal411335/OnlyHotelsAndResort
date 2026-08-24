@@ -1,0 +1,550 @@
+---
+description: Rules for designing and developing the Admin Dashboard UI.
+globs:
+  - "src/app/admin/**"
+  - "src/components/admin/**"
+  - "src/components/ui/**"
+alwaysApply: false
+---
+
+# Admin Dashboard Rules
+
+Before generating any admin UI, always read:
+
+- docs/PROJECT_RULES.md
+- docs/DESIGN_SYSTEM.md
+- docs/UI_GUIDELINES.md
+
+Never violate these documents.
+
+---
+
+# Objective
+
+Build a premium, minimal, modern CMS.
+
+The dashboard should feel like professional software instead of a template.
+
+Design inspiration:
+
+- Vercel Dashboard
+- Stripe Dashboard
+- Shopify Admin
+- Linear
+- Notion
+
+Avoid copying layouts.
+
+Follow their design principles.
+
+---
+
+# Dashboard Philosophy
+
+The dashboard should feel:
+
+- Professional
+- Clean
+- Fast
+- Spacious
+- Modern
+- Calm
+
+Avoid:
+
+- Bright colours
+- Gradient overload
+- Heavy shadows
+- Glassmorphism
+- Bootstrap admin templates
+- Overly colourful interfaces
+
+The interface should never compete with the content.
+
+---
+
+# Layout
+
+Every admin page should follow:
+
+Sidebar
+
+↓
+
+Top Header
+
+↓
+
+Page Header
+
+↓
+
+Content
+
+↓
+
+Footer
+
+Maintain the same spacing across all pages.
+
+---
+
+# Sidebar
+
+Dark background.
+
+Collapsible.
+
+Logo at top.
+
+Grouped navigation.
+
+Lucide icons only.
+
+Current page highlighted.
+
+Keep sidebar width consistent.
+
+Never create multiple sidebar styles.
+
+---
+
+# Header
+
+Sticky.
+
+Contains:
+
+Search
+
+Notifications
+
+Profile
+
+Breadcrumb
+
+Quick Actions (optional)
+
+Never overload the header.
+
+---
+
+# Page Header
+
+Every page must include:
+
+Title
+
+↓
+
+Short Description
+
+↓
+
+Primary Action Button (optional)
+
+↓
+
+Divider
+
+---
+
+# Cards
+
+Use one consistent card design.
+
+White background.
+
+Rounded corners.
+
+Soft border.
+
+Subtle shadow.
+
+Comfortable padding.
+
+Never create multiple card styles.
+
+---
+
+# Tables
+
+Use TanStack Table.
+
+Include:
+
+Search
+
+Pagination
+
+Sorting
+
+Empty State
+
+Loading State
+
+Responsive layout
+
+Avoid heavy borders.
+
+No dark table headers.
+
+---
+
+# Forms
+
+Only use shadcn/ui.
+
+Each form should include:
+
+Label
+
+Placeholder
+
+Validation
+
+Error Message
+
+Helper Text
+
+Loading State
+
+Disabled State
+
+Required Indicator (when applicable)
+
+Never build custom form controls unless necessary.
+
+---
+
+# Buttons
+
+Allowed variants:
+
+Primary
+
+Secondary
+
+Outline
+
+Ghost
+
+Destructive
+
+Use shadcn/ui Button.
+
+Do not create custom button components.
+
+---
+
+# Dialogs
+
+Use AlertDialog or Dialog from shadcn/ui.
+
+Use dialogs for:
+
+Delete
+
+Confirmation
+
+Image Preview
+
+Settings
+
+Large Forms
+
+Dialogs should:
+
+Be centered.
+
+Have clear titles.
+
+Provide Cancel and Confirm actions.
+
+Support Escape to close.
+
+---
+
+# Toasts
+
+Use React-hot toast.
+
+Success
+
+Error
+
+Warning
+
+Info
+
+Keep messages concise.
+
+Never block the UI.
+
+---
+
+# Navigation
+
+Use Breadcrumbs.
+
+Highlight active navigation.
+
+Maintain consistent spacing.
+
+Avoid deeply nested menus.
+
+Maximum nesting:
+
+Two levels.
+
+---
+
+# Empty States
+
+Every module should include an Empty State.
+
+Display:
+
+Icon
+
+Title
+
+Short description
+
+Primary Action
+
+Example:
+
+No gallery images found.
+
+[Upload Image]
+
+Never leave blank screens.
+
+---
+
+# Loading States
+
+Use Skeleton components.
+
+Maintain page layout while loading.
+
+Avoid full-page spinners.
+
+---
+
+# Error States
+
+Friendly language.
+
+Retry button.
+
+Never expose technical details.
+
+---
+
+# Search
+
+Position above tables.
+
+Responsive.
+
+Debounce if needed.
+
+Provide clear "No results" state.
+
+---
+
+# Filters
+
+Compact layout.
+
+Wrap on smaller screens.
+
+Always provide:
+
+Reset Filters
+
+Clear Filters
+
+---
+
+# Pagination
+
+Bottom aligned.
+
+Simple controls.
+
+Highlight current page.
+
+Keep layout consistent.
+
+---
+
+# Image Upload
+
+Use drag and drop.
+
+Show preview.
+
+Display upload progress.
+
+Allow remove before saving.
+
+Validate:
+
+File type
+
+File size
+
+Show errors immediately.
+
+---
+
+# Icons
+
+Lucide React only.
+
+Sizes:
+
+20px
+
+24px
+
+32px
+
+Never mix icon libraries.
+
+---
+
+# Animations
+
+Use Framer Motion.
+
+Allowed:
+
+Fade
+
+Slide
+
+Scale
+
+Hover
+
+Avoid:
+
+Bounce
+
+Flip
+
+Rotate
+
+Elastic
+
+Animation should feel natural.
+
+---
+
+# Responsive Design
+
+Desktop
+
+Full Sidebar
+
+Tablet
+
+Collapsible Sidebar
+
+Mobile
+
+Drawer Navigation
+
+No horizontal scrolling.
+
+---
+
+# Accessibility
+
+Keyboard navigation.
+
+Visible focus states.
+
+Semantic HTML.
+
+Proper labels.
+
+ARIA attributes where required.
+
+---
+
+# Component Reuse
+
+Always reuse:
+
+PageHeader
+
+DashboardCard
+
+DataTable
+
+EmptyState
+
+Loader
+
+DeleteDialog
+
+ConfirmDialog
+
+SearchBar
+
+FilterBar
+
+ImageUploader
+
+Never duplicate these components.
+
+---
+
+# Styling
+
+Use TailwindCSS.
+
+Use CSS variables.
+
+Never hardcode colours.
+
+Never hardcode spacing.
+
+Follow DESIGN_SYSTEM.md.
+
+---
+
+# Never Do
+
+Never redesign existing components without instruction.
+
+Never create multiple button styles.
+
+Never create multiple card styles.
+
+Never introduce new colour palettes.
+
+Never use Bootstrap.
+
+Never use Material UI.
+
+Never use random icon libraries.
+
+Never hardcode UI text that should come from CMS.
+
+---
+
+# Final Rule
+
+Every admin page should feel like it belongs to the same product.
+
+Consistency is more important than creativity.
+
+When in doubt:
+
+Reuse existing components.

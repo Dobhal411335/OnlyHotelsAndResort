@@ -1,0 +1,230 @@
+---
+description: Global project rules for the OnlyHotel CMS. Apply these rules for every task unless a more specific rule overrides them.
+globs:
+alwaysApply: true
+---
+
+# OnlyHotel CMS - Global Rules
+
+## Documentation
+
+Before generating code, always consult the project documentation in this order:
+
+1. docs/PROJECT_RULES.md
+2. docs/ARCHITECTURE.md
+3. docs/DESIGN_SYSTEM.md
+4. docs/UI_GUIDELINES.md
+5. docs/DEVELOPMENT_GUIDE.md
+
+For feature-specific work, also read:
+
+docs/FEATURES/<feature>.md
+
+---
+
+## Technology Stack
+
+Framework:
+Next.js App Router
+
+Language:
+JavaScript
+
+Styling:
+TailwindCSS
+
+UI Library:
+shadcn/ui
+
+Icons:
+Lucide React
+
+Animation:
+Framer Motion
+
+Database:
+MongoDB
+
+ODM:
+Mongoose
+
+Authentication:
+JWT + HTTP Only Cookies
+
+Image Storage:
+Cloudinary
+
+Emails:
+Brevo
+
+Logger:
+Winston
+
+Validation:
+React Hook Form + Zod
+
+---
+
+## Never Use
+
+TypeScript
+
+Redux
+
+Bootstrap
+
+Material UI
+
+Ant Design
+
+Express.js
+
+Socket.io
+
+Prisma
+
+CSS Modules
+
+Inline CSS
+
+Hardcoded colours
+
+Hardcoded website content
+
+---
+
+## General Rules
+
+Always build reusable components.
+
+Never duplicate components.
+
+Never duplicate business logic.
+
+Always use async/await.
+
+Always handle loading states.
+
+Always handle error states.
+
+Always handle empty states.
+
+Keep components small and focused.
+
+Prefer readability over cleverness.
+
+Follow the existing folder structure.
+
+Use environment variables for secrets.
+
+Do not install new packages unless explicitly requested.
+
+---
+
+## Server Components
+
+Use Server Components by default.
+
+Only use Client Components when interactivity requires them.
+
+Examples:
+
+Forms
+
+Dialogs
+
+Image Upload
+
+Animation
+
+Dropdowns
+
+Search
+
+---
+
+## Route Handlers
+
+Use Next.js Route Handlers.
+
+Do not create Express routes.
+
+Move business logic into services.
+
+Keep route handlers small.
+
+---
+
+## Styling Rules
+
+Use TailwindCSS only.
+
+Use CSS variables from globals.css.
+
+Use design tokens.
+
+Never hardcode spacing.
+
+Never hardcode colours.
+
+Use shadcn/ui whenever possible.
+
+---
+
+## Component Rules
+
+One component per file.
+
+One responsibility per component.
+
+Extract reusable UI.
+
+Avoid deeply nested JSX.
+
+Prefer composition.
+
+---
+
+## API Rules
+
+Return consistent responses.
+
+Example
+
+{
+  success,
+  message,
+  data
+}
+
+Never expose stack traces.
+
+---
+
+## Security
+
+Validate every request.
+
+Never trust frontend validation.
+
+Hash passwords.
+
+Store JWT inside HTTP Only Cookies.
+
+Never expose secrets.
+
+---
+
+## Git Philosophy
+
+One feature per commit.
+
+One bug per commit.
+
+Keep commits small.
+
+---
+
+## Final Rule
+
+If documentation conflicts with generated code, documentation always wins.
