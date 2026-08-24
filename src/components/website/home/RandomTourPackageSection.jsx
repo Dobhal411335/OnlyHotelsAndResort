@@ -3,12 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  ArrowUpRight,
-  CalendarClock,
-  MapPin,
-  Star,
-} from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 
 import { Container } from "@/components/common/Container";
 import { Section } from "@/components/common/Section";
@@ -20,6 +15,27 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+
+const DESC_WORD_LIMIT = 55;
+
+function truncateHtmlByWords(html = "", wordLimit = DESC_WORD_LIMIT) {
+  const raw = String(html || "").trim();
+  if (!raw) return "";
+
+  const text = raw
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/<\/(p|div|li|h[1-6])>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const words = text.split(" ").filter(Boolean);
+  if (words.length === 0) return "";
+  if (words.length <= wordLimit) return raw;
+
+  return `${words.slice(0, wordLimit).join(" ")}…`;
+}
 
 export default function RandomTourPackageSection() {
   const [packages, setPackages] = useState([]);
@@ -71,13 +87,11 @@ export default function RandomTourPackageSection() {
     fetchConsultancy();
   }, []);
 
-  const formatNumeric = (num) =>
-    new Intl.NumberFormat("en-IN").format(num);
+  const formatNumeric = (num) => new Intl.NumberFormat("en-IN").format(num);
 
   const showBanners = bannersLoading || bannerSection3rd.length > 0;
   const showPackages = packagesLoading || packages.length > 0;
-  const showConsultancy =
-    consultancyLoading || consultancyBanner.length > 0;
+  const showConsultancy = consultancyLoading || consultancyBanner.length > 0;
 
   return (
     <>
@@ -107,7 +121,7 @@ export default function RandomTourPackageSection() {
                     ) : null}
                   </div>
                   <div className="relative h-[500px] w-full md:hidden">
-                    {(item.mobileImage?.url || item.image?.url) ? (
+                    {item.mobileImage?.url || item.image?.url ? (
                       <Image
                         src={item.mobileImage?.url || item.image.url}
                         alt={item.title || "Promotional banner"}
@@ -132,11 +146,16 @@ export default function RandomTourPackageSection() {
                 Journeys
               </p>
               <h2 className="mt-5 font-heading text-4xl leading-[1.15] text-heading md:text-5xl">
-              You Will 
-                <em className="italic text-primary">Experience</em>.
+                You Will
+                <em className="italic text-primary"> Experience</em>.
               </h2>
               <p className="mt-5 font-body text-base leading-[1.9] text-foreground">
-              Experience the joyful spirit of Rishikesh through yoga, meditation, and soulful adventures. Witness the sacred Ganga Aarti, explore waterfalls on refreshing hikes, connect with nature, meditate beside the Ganga, and immerse yourself in healing sound vibrations. A beautiful journey of movement, connection, inner peace, and unforgettable moments.
+                Experience the joyful spirit of Rishikesh through yoga,
+                meditation, and soulful adventures. Witness the sacred Ganga
+                Aarti, explore waterfalls on refreshing hikes, connect with
+                nature, meditate beside the Ganga, and immerse yourself in
+                healing sound vibrations. A beautiful journey of movement,
+                connection, inner peace, and unforgettable moments.
               </p>
             </div>
 
@@ -162,60 +181,83 @@ export default function RandomTourPackageSection() {
                 ))}
               </div>
             ) : (
-              <div className="mt-14 grid grid-cols-1 gap-2 space-y-4 sm:space-y-4 md:grid-cols-2 lg:grid-cols-3">
-                {packages.map((item) => (
-                  <div
+              <div className="mt-14 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {packages.map((item) => {
+                  const descriptionHtml = truncateHtmlByWords(
+                    item?.basicDetails?.smallDesc ||
+                      item?.basicDetails?.fullDesc ||
+                      "",
+                  );
+                  const price = Number(item?.price);
+
+                  return (
+                    <article
                       key={item._id || item.slug}
-                      className="md:pl-4 md:basis-1/2 md:pl-6 lg:basis-1/3"
+                      className="group flex h-full flex-col rounded-card border border-border bg-white p-6"
                     >
-                      <article className="group flex h-full flex-col justify-between rounded-card border border-border bg-white p-6">
-                        <div> 
-                          <div className="relative mb-6 aspect-[3/3] w-full overflow-hidden rounded-image bg-border">
-                            <Image
-                              src={
-                                item?.basicDetails?.thumbnail?.url ||
-                                "/placeholder.png"
-                              }
-                              alt={item?.packageName || "Tour package"}
-                              fill
-                              sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 33vw"
-                              quality={60}
-                              className="object-cover transition-transform duration-(--duration-slow) ease-(--ease-smooth) group-hover:scale-[1.03]"
-                            />
-                          </div>
+                      <div className="relative mb-6 aspect-[4/3] w-full shrink-0 overflow-hidden rounded-image bg-border">
+                        <Image
+                          src={
+                            item?.basicDetails?.thumbnail?.url ||
+                            "/placeholder.png"
+                          }
+                          alt={item?.packageName || "Tour package"}
+                          fill
+                          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 33vw"
+                          quality={60}
+                          className="object-cover object-center transition-transform duration-(--duration-slow) ease-(--ease-smooth) group-hover:scale-[1.03]"
+                        />
+                      </div>
 
-                          <div className="flex items-start justify-between">
-                            <span className="font-sans text-[12px] uppercase tracking-[0.2em] text-black">
-                              {item?.basicDetails?.duration
-                                ? `${item.basicDetails.duration} Days`
-                                : "Flexible"}
+                      <div className="flex min-h-0 flex-1 flex-col">
+                        <div className="flex items-start justify-between gap-3">
+                          <span className="font-sans text-[12px] uppercase tracking-[0.2em] text-black">
+                            {item?.basicDetails?.duration
+                              ? `${item.basicDetails.duration} Days`
+                              : "Flexible"}
+                          </span>
+                          {Number.isFinite(price) ? (
+                            <span className="shrink-0 font-heading text-lg font-medium text-heading">
+                              {price === 0
+                                ? "On enquiry"
+                                : `₹${formatNumeric(price)}*`}
                             </span>
-                          </div>
-
-                          <h3 className="mt-2 font-sans text-xl text-black">
-                            {item.packageName}
-                          </h3>
-                          {item?.basicDetails?.location && (
-                            <p className="mt-1 flex items-center gap-1.5 font-body text-md italic text-black">
-                              <MapPin className="size-3.5" />{" "}
-                              {item.basicDetails.location}
-                            </p>
-                          )}
+                          ) : null}
                         </div>
 
-                        <Link
-                          href={`/package/${item.slug}`}
-                          className="mt-8 inline-flex h-10 items-center justify-center gap-2 rounded-button border border-border px-5 font-body text-sm transition-colors bg-foreground text-white hover:border-heading/40"
-                        >
-                          View Details
-                          <ArrowUpRight className="size-4" aria-hidden="true" />
-                        </Link>
-                      </article>
-                    </div>
-                ))}
+                        <h3 className="mt-2 font-sans text-xl text-black line-clamp-2">
+                          {item.packageName}
+                        </h3>
+                        {item?.basicDetails?.location ? (
+                          <p className="mt-1 flex items-center gap-1.5 font-body text-md italic text-black">
+                            <MapPin className="size-3.5 shrink-0" />
+                            {item.basicDetails.location}
+                          </p>
+                        ) : null}
+
+                        {descriptionHtml ? (
+                          <div
+                            className="mt-3 line-clamp-4 font-body text-sm leading-relaxed text-muted [&_p]:m-0 [&_ul]:m-0 [&_ol]:m-0"
+                            dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+                          />
+                        ) : null}
+
+                        <div className="mt-auto pt-8">
+                          <Link
+                            href={`/package/${item.slug}`}
+                            className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-button border border-gray-400 bg-foreground/10 px-5 font-body text-sm text-black transition-colors hover:border-heading/40 hover:bg-foreground hover:text-white"
+                          >
+                            View Details
+                            <ArrowUpRight className="size-4" aria-hidden="true" />
+                          </Link>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             )}
-          </Container>  
+          </Container>
         </Section>
       )}
 
@@ -227,13 +269,12 @@ export default function RandomTourPackageSection() {
                 Guidance
               </p>
               <h2 className="mt-5 font-heading text-4xl leading-[1.15] text-heading md:text-5xl">
-                Rooted in{" "}
-                <em className="italic text-primary">authenticity</em>.
+                Rooted in <em className="italic text-primary">authenticity</em>.
               </h2>
               <p className="mx-auto mt-5 max-w-lg font-body text-base leading-[1.9] text-foreground">
-                Thoughtful guidance shaped by tradition — never hurried,
-                never mass-produced. Space to ask, listen, and arrive at
-                your own pace.
+                Thoughtful guidance shaped by tradition — never hurried, never
+                mass-produced. Space to ask, listen, and arrive at your own
+                pace.
               </p>
             </div>
 
@@ -264,7 +305,7 @@ export default function RandomTourPackageSection() {
 
                         <div className="flex flex-col justify-center rounded-[var(--radius-card)] border border-border bg-surface p-8 md:p-12">
                           {typeof item.rating === "number" &&
-                            item.rating > 0 ? (
+                          item.rating > 0 ? (
                             <div className="mb-6 flex items-center gap-3">
                               <div
                                 className="flex items-center gap-1"
@@ -273,10 +314,11 @@ export default function RandomTourPackageSection() {
                                 {Array.from({ length: 5 }).map((_, star) => (
                                   <Star
                                     key={star}
-                                    className={`size-4 ${star < item.rating
+                                    className={`size-4 ${
+                                      star < item.rating
                                         ? "fill-warning text-warning"
                                         : "text-border"
-                                      }`}
+                                    }`}
                                     strokeWidth={1.5}
                                     aria-hidden="true"
                                   />

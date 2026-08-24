@@ -30,6 +30,7 @@ function serializeCompanyBasicInfo(record) {
     contactNumbers: Array.isArray(record.contactNumbers)
       ? record.contactNumbers.filter(Boolean)
       : [],
+    whatsappNumber: record.whatsappNumber || "",
     mainLogo: serializeImage(record.mainLogo),
     footerLogo: serializeImage(record.footerLogo),
     mobileUiLogo: serializeImage(record.mobileUiLogo),
@@ -46,7 +47,9 @@ function serializeCompanyBasicInfo(record) {
     googleMapLink: record.googleMapLink || "",
     googleTrackingTag: record.googleTrackingTag || "",
     titleTagForMainLandingPage: record.titleTagForMainLandingPage || "",
-    keywords: Array.isArray(record.keywords) ? record.keywords.filter(Boolean) : [],
+    keywords: Array.isArray(record.keywords)
+      ? record.keywords.filter(Boolean)
+      : [],
   };
 }
 
@@ -76,8 +79,7 @@ export const getCompanyBasicInfo = cache(async () => {
 
 export function buildCompanyMetadata(company) {
   const siteName = company?.companyName || FALLBACK_METADATA.siteName;
-  const title =
-    company?.titleTagForMainLandingPage || FALLBACK_METADATA.title;
+  const title = company?.titleTagForMainLandingPage || FALLBACK_METADATA.title;
   const keywords =
     company?.keywords?.length > 0
       ? company.keywords

@@ -147,26 +147,27 @@ export function HeroSection() {
       <div className="hidden xl:block w-full h-[calc(100vh-85px)]">
         <div className="hidden xl:block w-full h-full">
           <Carousel
-            className="h-[calc(100vh-80px)] w-full"
+            className="h-[calc(100vh-85px)] w-full"
             plugins={[plugin.current]}
             onMouseLeave={plugin.current.reset}
             setApi={setDesktopApi}
           >
             <CarouselContent className="h-full">
               {banners.map((item, index) => (
-                <CarouselItem key={index} className="h-[calc(100vh-80px)]">
+                <CarouselItem key={index} className="h-[calc(100vh-85px)]">
                   <Link
                     href={item?.buttonLink || "#"}
                     className="block h-full w-full"
                   >
-                    <div className="relative h-[calc(100vh-80px)] w-full flex items-center justify-center bg-black">
+                    <div className="relative h-full w-full overflow-hidden bg-black">
                       <Image
                         src={item?.frontImg?.url || " "}
                         alt={item?.title || "Banner Image"}
                         fill
                         quality={100}
                         priority
-                        className="object-cover"
+                        sizes="100vw"
+                        className="object-cover object-center"
                       />
                     </div>
                   </Link>

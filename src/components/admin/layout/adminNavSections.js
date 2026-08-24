@@ -152,6 +152,11 @@ export const adminNavSections = [
         href: "/admin/manage_hotels",
         icon: Boxes,
       },
+      {
+        label: "Manage Rooms",
+        href: "/admin/create_room",
+        icon: Boxes,
+      },
     ],
   },
   {
