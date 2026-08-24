@@ -217,10 +217,10 @@ export default function RandomTourPackageSection() {
                               : "Flexible"}
                           </span>
                           {Number.isFinite(price) ? (
-                            <span className="shrink-0 font-heading text-lg font-medium text-heading">
+                            <span className="shrink-0 font-sans text-xl font-medium text-heading">
                               {price === 0
                                 ? "On enquiry"
-                                : `₹${formatNumeric(price)}*`}
+                                : `₹${formatNumeric(price)}`}
                             </span>
                           ) : null}
                         </div>
