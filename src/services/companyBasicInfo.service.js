@@ -102,21 +102,21 @@ export function buildCompanyMetadata(company) {
     keywords,
     icons: {
       icon: [
-        { url: "/favicon/favicon.ico" },
+        { url: "/favicon.ico" },
         {
-          url: "/favicon/favicon-16x16.png",
+          url: "/favicon-16x16.png",
           sizes: "16x16",
           type: "image/png",
         },
         {
-          url: "/favicon/favicon-32x32.png",
+          url: "/favicon-32x32.png",
           sizes: "32x32",
           type: "image/png",
         },
       ],
-      apple: "/favicon/apple-touch-icon.png",
+      apple: "/apple-touch-icon.png",
     },
-    manifest: "/favicon/site.webmanifest",
+    manifest: "/site.webmanifest",
     openGraph: {
       title,
       description: FALLBACK_METADATA.ogDescription,
