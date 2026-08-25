@@ -613,7 +613,7 @@ export default function SingelRoomDetail({ data, relatedRooms = [] }) {
                   {phoneNumber ? (
                     <Link
                       href={`tel:+${phoneNumber}`}
-                      className="flex items-center justify-center rounded-button border border-border p-3 text-heading transition-colors hover:bg-surface"
+                      className="flex items-center justify-center rounded-button border border-gray-600 p-3 text-heading transition-colors hover:bg-surface"
                     >
                       <Phone className="size-4" />
                     </Link>

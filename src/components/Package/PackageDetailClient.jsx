@@ -1745,7 +1745,7 @@ export default function PackageDetailClient({
                     <Link
                       href={`tel:+919762240419`}
                       target="_blank"
-                      className="flex items-center justify-center rounded-button border border-border p-3 text-heading transition-colors hover:bg-surface"
+                      className="flex items-center justify-center rounded-button border border-gray-600 p-3 text-heading transition-colors hover:bg-surface"
                     >
                       <PhoneCall className="h-4 w-4" />
                     </Link>
