@@ -177,7 +177,7 @@ export default function RandomTourPackageSection() {
                   return (
                     <article
                       key={item._id || item.slug}
-                      className="group flex h-full flex-col rounded-card border border-border bg-white p-6"
+                      className="group flex h-full flex-col rounded-card border border-border bg-white p-4"
                     >
                       <div className="relative mb-6 aspect-[4/3] w-full shrink-0 overflow-hidden rounded-image bg-border">
                         <Image
@@ -188,7 +188,7 @@ export default function RandomTourPackageSection() {
                           alt={item?.packageName || "Tour package"}
                           fill
                           sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 33vw"
-                          quality={60}
+                          quality={100}
                           className="object-cover object-center transition-transform duration-(--duration-slow) ease-(--ease-smooth) group-hover:scale-[1.03]"
                         />
                       </div>
@@ -261,41 +261,61 @@ export default function RandomTourPackageSection() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:gap-8 w-full">
-              {promoLoading
-                ? Array.from({ length: 2 }).map((_, idx) => (
+            {promoLoading ? (
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+                {Array.from({ length: 2 }).map((_, idx) => (
                   <Skeleton
                     key={idx}
-                    className="w-full aspect-[16/9] rounded-md md:rounded-image"
+                    className="w-full aspect-[4/3] rounded-md md:rounded-image"
                   />
-                ))
-                : promotionalBanners.map((item) => (
-                  <Link
-                    key={item._id || item.title}
-                    href={item.buttonLink || "#"}
-                    target={item.buttonLink ? "_blank" : undefined}
-                    rel={item.buttonLink ? "noopener noreferrer" : undefined}
-                    className="group relative block w-full aspect-[16/9] overflow-hidden rounded-image bg-border"
-                  >
-                    {item.image?.url ? (
-                      <img
-                        src={item.image.url}
-                        alt={item.title || "Promotional banner"}
-                        className="block w-full h-full object-fill transition-transform duration-slow ease-smooth group-hover:scale-[1.03]"
-                      />
-                    ) : null}
-                    <div className="absolute inset-0 flex items-end bg-image-dark/40 opacity-0 transition-opacity duration-[var(--duration-medium)] group-hover:opacity-100">
-                      <span className="m-6 inline-flex items-center gap-1.5 font-ui text-xs uppercase tracking-[0.2em] text-white">
-                        Explore
-                        <ArrowUpRight
-                          className="size-3.5"
-                          aria-hidden="true"
-                        />
-                      </span>
-                    </div>
-                  </Link>
                 ))}
-            </div>
+              </div>
+            ) : (
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: promotionalBanners.length > 2,
+                }}
+                className="relative w-full"
+              >
+                <CarouselContent className="-ml-4 md:-ml-6">
+                  {promotionalBanners.map((item) => (
+                    <CarouselItem
+                      key={item._id || item.title}
+                      className="pl-4 basis-full md:basis-1/3 md:pl-6"
+                    >
+                      <Link
+                        href={item.buttonLink || "#"}
+                        target={item.buttonLink ? "_blank" : undefined}
+                        rel={
+                          item.buttonLink ? "noopener noreferrer" : undefined
+                        }
+                        className="group relative block w-full aspect-[4/3] overflow-hidden rounded-image bg-border"
+                      >
+                        {item.image?.url ? (
+                          <img
+                            src={item.image.url}
+                            alt={item.title || "Promotional banner"}
+                            className="block h-full w-full object-fill transition-transform duration-slow ease-smooth group-hover:scale-[1.03]"
+                          />
+                        ) : null}
+                        <div className="absolute inset-0 flex items-end bg-image-dark/40 opacity-0 transition-opacity duration-[var(--duration-medium)] group-hover:opacity-100">
+                          <span className="m-6 inline-flex items-center gap-1.5 font-ui text-xs uppercase tracking-[0.2em] text-white">
+                            Explore
+                            <ArrowUpRight
+                              className="size-3.5"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        </div>
+                      </Link>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-1 size-10 border border-black bg-white text-black shadow-none hover:bg-white md:-left-3" />
+                <CarouselNext className="right-1 size-10 border border-black bg-white text-black shadow-none hover:bg-white md:-right-3" />
+              </Carousel>
+            )}
           </div>
         </Section>
       )}
@@ -389,7 +409,7 @@ export default function RandomTourPackageSection() {
                         </span>
                       </div>
                     </div>
-                    <h3 className="font-heading text-xl leading-snug text-heading transition-colors duration-300 group-hover:text-primary md:text-2xl">
+                    <h3 className="font-heading text-xl leading-snug text-heading transition-colors duration-300 group-hover:text-black">
                       {item.title}
                     </h3>
                   </Link>

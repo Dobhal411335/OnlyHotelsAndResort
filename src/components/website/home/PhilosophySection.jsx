@@ -14,15 +14,17 @@ export function PhilosophySection() {
   return (
     <Section spacing="sm" className="bg-background">
       <Container>
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-15">
           <div>
-            <p className="font-ui text-xs uppercase tracking-[0.25em] text-gray-800">
+            <p className="font-ui text-xs uppercase tracking-[0.25em] text-gray-900">
               About US
             </p>
-            <h2 className="mt-5 font-heading text-5xl leading-[1.1] text-heading md:text-6xl">
-              Where Warm Hospitality Meets
+            <h2 className="mt-5 font-heading text-5xl leading-[1.1] text-heading xl:text-6xl">
+              Where Warm Hospitality
               <br />
-              <em className="italic text-primary"> Timeless Experiences</em>
+              <span className="whitespace-nowrap">
+                Meets <em className="italic text-primary">Timeless Experiences</em>
+              </span>
             </h2>
           </div>
 
