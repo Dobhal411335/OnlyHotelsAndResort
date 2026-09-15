@@ -149,7 +149,7 @@ export default function AboutUsSection() {
                   className="group relative block w-full overflow-hidden bg-border"
                 >
                   {/* Desktop */}
-                  <div className="relative hidden h-[430px] w-full md:block">
+                  <div className="relative hidden h-[450px] w-full md:block">
                     {item.image?.url ? (
                       <Image
                         src={item.image.url}
@@ -161,7 +161,7 @@ export default function AboutUsSection() {
                     ) : null}
                   </div>
                   {/* Mobile */}
-                  <div className="relative h-[330px] px-1 w-full md:hidden">
+                  <div className="relative h-[350px] px-1 w-full md:hidden">
                     {(item.mobileImage?.url || item.image?.url) ? (
                       <Image
                         src={item.mobileImage?.url || item.image.url}

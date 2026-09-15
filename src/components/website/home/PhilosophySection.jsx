@@ -20,10 +20,11 @@ export function PhilosophySection() {
               About US
             </p>
             <h2 className="mt-5 font-heading text-5xl leading-[1.1] text-heading xl:text-6xl">
-              Where Warm Hospitality
+              Where Warm Hospitality <span className="md:hidden ">Meets</span> 
               <br />
-              <span className="whitespace-nowrap">
-                Meets <em className="italic text-primary">Timeless Experiences</em>
+              <span className="md:whitespace-nowrap">
+                <span className="hidden md:inline">Meets</span>
+                <em className="italic text-primary">Timeless Experiences</em>
               </span>
             </h2>
           </div>

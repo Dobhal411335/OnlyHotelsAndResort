@@ -15,6 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { PromotionalBannersSection } from "@/components/website/home/PromotionalBannersSection";
 
 const DESC_WORD_LIMIT = 55;
 
@@ -45,8 +46,6 @@ export default function RandomTourPackageSection() {
   const [consultancyBanner, setConsultancyBanner] = useState([]);
   const [consultancyLoading, setConsultancyLoading] = useState(true);
   const [featuredPackages, setFeaturedPackages] = useState([]);
-  const [promotionalBanners, setPromotionalBanners] = useState([]);
-  const [promoLoading, setPromoLoading] = useState(true);
   useEffect(() => {
     const fetchPackages = async () => {
       try {
@@ -68,17 +67,6 @@ export default function RandomTourPackageSection() {
         setFeaturedPackages([]);
       } finally {
         setPackagesLoading(false);
-      }
-    };
-    const fetchPromotional = async () => {
-      try {
-        const res = await fetch("/api/addPromotinalBanner");
-        const data = await res.json();
-        setPromotionalBanners(Array.isArray(data) ? data : []);
-      } catch {
-        setPromotionalBanners([]);
-      } finally {
-        setPromoLoading(false);
       }
     };
     const fetchBanners = async () => {
@@ -109,7 +97,6 @@ export default function RandomTourPackageSection() {
     fetchBanners();
     fetchConsultancy();
     fetchFeaturedPackages();
-    fetchPromotional();
   }, []);
 
   const formatNumeric = (num) => new Intl.NumberFormat("en-IN").format(num);
@@ -118,7 +105,6 @@ export default function RandomTourPackageSection() {
   const showPackages = packagesLoading || packages.length > 0;
   const showConsultancy = consultancyLoading || consultancyBanner.length > 0;
   const showFeaturedPackages = packagesLoading || featuredPackages.length > 0;
-  const showPromo = promoLoading || promotionalBanners.length > 0;
 
   return (
     <>
@@ -179,7 +165,7 @@ export default function RandomTourPackageSection() {
                       key={item._id || item.slug}
                       className="group flex h-full flex-col rounded-card border border-border bg-white p-4"
                     >
-                      <div className="relative mb-6 aspect-[4/3] w-full shrink-0 overflow-hidden rounded-image bg-border">
+                      <div className="relative mx-auto mb-6 h-[450px] w-[650px] max-w-full shrink-0 overflow-hidden rounded-image bg-border">
                         <Image
                           src={
                             item?.basicDetails?.thumbnail?.url ||
@@ -187,7 +173,7 @@ export default function RandomTourPackageSection() {
                           }
                           alt={item?.packageName || "Tour package"}
                           fill
-                          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 33vw"
+                          sizes="650px"
                           quality={100}
                           className="object-cover object-center transition-transform duration-(--duration-slow) ease-(--ease-smooth) group-hover:scale-[1.03]"
                         />
@@ -244,81 +230,7 @@ export default function RandomTourPackageSection() {
           </Container>
         </Section>
       )}
-      {showPromo && (
-        <Section spacing="sm" className="bg-background w-full">
-          <div className="mx-auto w-full max-w-[2000px] px-2 md:px-8 lg:px-12">
-            <div className="mx-auto mb-12 max-w-2xl text-center">
-              <p className="font-ui text-xs uppercase tracking-[0.25em] text-gray-600">
-                Discover
-              </p>
-              <h2 className="mt-5 font-heading text-4xl leading-[1.15] text-heading md:text-5xl">
-                Quiet invitations to{" "}
-                <em className="italic text-primary">pause</em>.
-              </h2>
-              <p className="mx-auto mt-5 max-w-lg font-body text-base leading-[1.9] text-foreground">
-                A few curated openings — for the days you want stillness,
-                soft light, and nothing asking more of you than presence.
-              </p>
-            </div>
-
-            {promoLoading ? (
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-                {Array.from({ length: 2 }).map((_, idx) => (
-                  <Skeleton
-                    key={idx}
-                    className="w-full aspect-[4/3] rounded-md md:rounded-image"
-                  />
-                ))}
-              </div>
-            ) : (
-              <Carousel
-                opts={{
-                  align: "start",
-                  loop: promotionalBanners.length > 2,
-                }}
-                className="relative w-full"
-              >
-                <CarouselContent className="-ml-4 md:-ml-6">
-                  {promotionalBanners.map((item) => (
-                    <CarouselItem
-                      key={item._id || item.title}
-                      className="pl-4 basis-full md:basis-1/3 md:pl-6"
-                    >
-                      <Link
-                        href={item.buttonLink || "#"}
-                        target={item.buttonLink ? "_blank" : undefined}
-                        rel={
-                          item.buttonLink ? "noopener noreferrer" : undefined
-                        }
-                        className="group relative block w-full aspect-[4/3] overflow-hidden rounded-image bg-border"
-                      >
-                        {item.image?.url ? (
-                          <img
-                            src={item.image.url}
-                            alt={item.title || "Promotional banner"}
-                            className="block h-full w-full object-fill transition-transform duration-slow ease-smooth group-hover:scale-[1.03]"
-                          />
-                        ) : null}
-                        <div className="absolute inset-0 flex items-end bg-image-dark/40 opacity-0 transition-opacity duration-[var(--duration-medium)] group-hover:opacity-100">
-                          <span className="m-6 inline-flex items-center gap-1.5 font-ui text-xs uppercase tracking-[0.2em] text-white">
-                            Explore
-                            <ArrowUpRight
-                              className="size-3.5"
-                              aria-hidden="true"
-                            />
-                          </span>
-                        </div>
-                      </Link>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-1 size-10 border border-black bg-white text-black shadow-none hover:bg-white md:-left-3" />
-                <CarouselNext className="right-1 size-10 border border-black bg-white text-black shadow-none hover:bg-white md:-right-3" />
-              </Carousel>
-            )}
-          </div>
-        </Section>
-      )}
+      <PromotionalBannersSection />
       {showBanners && (
         <section className="w-full bg-background">
           {bannersLoading ? (
