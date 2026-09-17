@@ -12,7 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { FeaturedHotelsHomeSection } from "@/components/website/home/FeaturedHotelsHomeSection";
+import HomeGallerySection from "@/components/website/home/GallerySection";
 
 function FacebookIcon({ className }) {
   return (
@@ -62,10 +62,6 @@ export default function InstaBlog({ section = "frontend" }) {
     const fetchFacebookPosts = async () => {
       try {
         const res = await fetch(`/api/facebook-posts`);
-        if (!res.ok) {
-          setFacebookPosts([]);
-          return;
-        }
         const data = await res.json();
         setFacebookPosts(Array.isArray(data) ? data : []);
       } catch {
@@ -78,10 +74,6 @@ export default function InstaBlog({ section = "frontend" }) {
     const fetchInstagramPosts = async () => {
       try {
         const res = await fetch(`/api/instagram-posts`);
-        if (!res.ok) {
-          setInstagramPosts([]);
-          return;
-        }
         const data = await res.json();
         setInstagramPosts(Array.isArray(data) ? data : []);
       } catch {
@@ -95,14 +87,15 @@ export default function InstaBlog({ section = "frontend" }) {
     fetchInstagramPosts();
   }, []);
 
-  const isPostsLoading = isInstaLoading || isFbLoading;
+  const isLoading = isInstaLoading || isFbLoading;
+
   const allPosts = [...instagramPosts, ...facebookPosts].sort((a, b) => {
     const dateA = new Date(a.createdAt).getTime();
     const dateB = new Date(b.createdAt).getTime();
     return dateB - dateA;
   });
 
-  const showPosts = isPostsLoading || allPosts.length > 0;
+  const hasPosts = isLoading || allPosts.length > 0;
 
   const itemBasis =
     allPosts.length <= 3
@@ -115,10 +108,10 @@ export default function InstaBlog({ section = "frontend" }) {
 
   return (
     <>
-      {showPosts ? (
+      {hasPosts ? (
         <section className="w-full overflow-hidden bg-background py-10 md:py-12">
           <div className="w-full px-3">
-            {isPostsLoading ? (
+            {isLoading ? (
               <div className="flex gap-4 overflow-hidden">
                 {Array.from({ length: 5 }).map((_, idx) => (
                   <Skeleton
@@ -181,7 +174,7 @@ export default function InstaBlog({ section = "frontend" }) {
         </section>
       ) : null}
 
-      <FeaturedHotelsHomeSection />
+      <HomeGallerySection />
     </>
   );
 }

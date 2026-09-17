@@ -24,6 +24,11 @@ export const adminNavSections = [
         icon: Building2,
       },
       {
+        label: "Gallery Section",
+        href: "/admin/gallery_section",
+        icon: ImageIcon,
+      },
+      {
         label: "Manage Navbar",
         href: "/admin/navbar_section",
         icon: Navigation,
@@ -76,7 +81,12 @@ export const adminNavSections = [
         icon: ImageIcon,
       },
       {
-        label: "Promotional Banner",
+        label: "Philosophy Banner",
+        href: "/admin/philosophy_banner",
+        icon: ImageIcon,
+      },
+        {
+          label: "Promotional Banner",
         href: "/admin/promotional_banner",
         icon: ImageIcon,
       },
