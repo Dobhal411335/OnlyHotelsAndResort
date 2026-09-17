@@ -158,7 +158,7 @@ export default function RandomTourPackageSection() {
                       />
                     ) : null}
                   </div>
-                  <div className="relative h-[500px] w-full md:hidden">
+                  <div className="relative h-[350px] w-full md:hidden">
                     {item.mobileImage?.url || item.image?.url ? (
                       <Image
                         src={item.mobileImage?.url || item.image.url}

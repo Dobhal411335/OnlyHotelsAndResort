@@ -78,7 +78,7 @@ export default function Banner() {
                 You Will
                 <em className="italic text-primary"> Experience</em>.
               </h2>
-              <p className="mt-5 font-body text-base leading-[1.9] text-foreground">
+              <p className="mt-5 text-justify font-body text-base leading-[1.9] text-black">
                 Experience the joyful spirit of Rishikesh through yoga,
                 meditation, and soulful adventures. Witness the sacred Ganga
                 Aarti, explore waterfalls on refreshing hikes, connect with
@@ -198,7 +198,7 @@ export default function Banner() {
         <Section spacing="sm" className="bg-background w-full">
           <div className="w-full">
             {bannersLoading ? (
-              <Skeleton className="h-[400px] px-2 w-full rounded-none md:h-[430px]" />
+              <Skeleton className="h-[350px] px-2 w-full rounded-none md:h-[430px]" />
             ) : (
               <div className="flex flex-col gap-8 w-full">
                 {bannerSection2nd.map((item) => (

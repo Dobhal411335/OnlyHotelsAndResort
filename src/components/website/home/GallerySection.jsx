@@ -21,45 +21,159 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const IMAGES_PER_SLIDE = 10;
+const COLUMNS_PER_SLIDE = 5;
+const TALL_RATIO = 1.05;
 
-function chunkImages(images, size) {
+function loadImageMeta(image) {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined" || !image?.url) {
+      resolve({ ...image, width: 1, height: 1, isTall: false });
+      return;
+    }
+
+    const img = new window.Image();
+    img.onload = () => {
+      const width = img.naturalWidth || 1;
+      const height = img.naturalHeight || 1;
+      resolve({
+        ...image,
+        width,
+        height,
+        isTall: height / width >= TALL_RATIO,
+      });
+    };
+    img.onerror = () => {
+      resolve({ ...image, width: 1, height: 1, isTall: false });
+    };
+    img.src = image.url;
+  });
+}
+
+/** Pack tall images as full-height columns; wide images as stacked pairs. */
+function packGalleryColumns(items = []) {
+  const tall = items.filter((item) => item.isTall);
+  const wide = items.filter((item) => !item.isTall);
+  const columns = [];
+  let ti = 0;
+  let wi = 0;
+
+  while (ti < tall.length || wi < wide.length) {
+    const canStackWide = wi + 1 < wide.length;
+    const preferStack =
+      canStackWide && (ti >= tall.length || columns.length % 2 === 1);
+
+    if (preferStack) {
+      columns.push({
+        type: "stack",
+        images: [wide[wi], wide[wi + 1]],
+      });
+      wi += 2;
+      continue;
+    }
+
+    if (ti < tall.length) {
+      columns.push({ type: "tall", images: [tall[ti]] });
+      ti += 1;
+      continue;
+    }
+
+    if (canStackWide) {
+      columns.push({
+        type: "stack",
+        images: [wide[wi], wide[wi + 1]],
+      });
+      wi += 2;
+      continue;
+    }
+
+    if (wi < wide.length) {
+      columns.push({ type: "single", images: [wide[wi]] });
+      wi += 1;
+    }
+  }
+
+  return columns;
+}
+
+function chunkColumns(columns, size) {
   const chunks = [];
-  for (let i = 0; i < images.length; i += size) {
-    chunks.push(images.slice(i, i + size));
+  for (let i = 0; i < columns.length; i += size) {
+    chunks.push(columns.slice(i, i + size));
   }
   return chunks;
 }
 
-function GallerySlide({ images, slideIndex, allImages }) {
-  const slideImages = images.slice(0, IMAGES_PER_SLIDE);
+function GalleryImage({ image, alt, className, sizes }) {
+  return (
+    <div className={`relative overflow-hidden rounded-image bg-border ${className}`}>
+      <Image
+        src={image.url}
+        alt={alt}
+        fill
+        loading="lazy"
+        sizes={sizes}
+        className="object-cover"
+      />
+    </div>
+  );
+}
 
-  if (slideImages.length === 0) return null;
+function GalleryColumn({ column, columnIndex, slideIndex }) {
+  const baseIndex = slideIndex * COLUMNS_PER_SLIDE + columnIndex;
+
+  if (column.type === "tall") {
+    return (
+      <div className="flex h-full min-h-0 flex-col">
+        <GalleryImage
+          image={column.images[0]}
+          alt={`Gallery image ${baseIndex + 1}`}
+          className="h-full min-h-[22rem] w-full md:min-h-[26rem]"
+          sizes="(max-width: 768px) 50vw, 20vw"
+        />
+      </div>
+    );
+  }
+
+  if (column.type === "stack") {
+    return (
+      <div className="flex h-full min-h-[22rem] flex-col gap-3 md:min-h-[26rem] md:gap-4">
+        {column.images.map((image, index) => (
+          <GalleryImage
+            key={image.key || `${baseIndex}-${index}`}
+            image={image}
+            alt={`Gallery image ${baseIndex + 1}-${index + 1}`}
+            className="min-h-0 flex-1 w-full"
+            sizes="(max-width: 768px) 50vw, 20vw"
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-full min-h-0 flex-col">
+      <GalleryImage
+        image={column.images[0]}
+        alt={`Gallery image ${baseIndex + 1}`}
+        className="h-full min-h-[11rem] w-full md:min-h-[13rem]"
+        sizes="(max-width: 768px) 50vw, 20vw"
+      />
+    </div>
+  );
+}
+
+function GallerySlide({ columns, slideIndex, allImages }) {
+  if (!columns.length) return null;
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 md:gap-4">
-        {slideImages.map((image, index) => (
-          <div
-            key={image.key || index}
-            className="relative aspect-square overflow-hidden rounded-image"
-          >
-            <Image
-              src={image.url}
-              alt={`Gallery image ${slideIndex * IMAGES_PER_SLIDE + index + 1}`}
-              fill
-              loading="lazy"
-              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 20vw"
-              className="object-cover"
-            />
-          </div>
-        ))}
-        {Array.from({
-          length: Math.max(0, IMAGES_PER_SLIDE - slideImages.length),
-        }).map((_, index) => (
-          <div
-            key={`placeholder-${index}`}
-            className="aspect-square rounded-image bg-surface"
+      <div className="grid grid-cols-2 items-stretch gap-3 sm:grid-cols-3 md:grid-cols-5 md:gap-4">
+        {columns.map((column, index) => (
+          <GalleryColumn
+            key={`col-${slideIndex}-${index}`}
+            column={column}
+            columnIndex={index}
+            slideIndex={slideIndex}
           />
         ))}
       </div>
@@ -75,18 +189,17 @@ function GallerySlide({ images, slideIndex, allImages }) {
               Gallery
             </DialogTitle>
           </DialogHeader>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+          <div className="columns-1 gap-3 sm:columns-2 md:columns-3 md:gap-4">
             {allImages.map((image, index) => (
               <div
                 key={image.key || index}
-                className="relative aspect-4/3 overflow-hidden rounded-image"
+                className="mb-3 break-inside-avoid md:mb-4"
               >
-                <Image
+                <img
                   src={image.url}
                   alt={`Gallery detail ${index + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                  className="object-cover"
+                  className="h-auto w-full rounded-image object-cover"
+                  loading="lazy"
                 />
               </div>
             ))}
@@ -99,7 +212,9 @@ function GallerySlide({ images, slideIndex, allImages }) {
 
 export default function HomeGallerySection() {
   const [images, setImages] = useState([]);
+  const [measuredImages, setMeasuredImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMeasuring, setIsMeasuring] = useState(false);
 
   useEffect(() => {
     const fetchGallery = async () => {
@@ -109,7 +224,7 @@ export default function HomeGallerySection() {
         setImages(
           result?.success && Array.isArray(result?.data?.images)
             ? result.data.images
-            : []
+            : [],
         );
       } catch {
         setImages([]);
@@ -121,20 +236,47 @@ export default function HomeGallerySection() {
     fetchGallery();
   }, []);
 
-  const slides = useMemo(
-    () => chunkImages(images, IMAGES_PER_SLIDE),
-    [images]
-  );
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!images.length) {
+      setMeasuredImages([]);
+      setIsMeasuring(false);
+      return undefined;
+    }
+
+    setIsMeasuring(true);
+    Promise.all(images.map(loadImageMeta)).then((results) => {
+      if (!cancelled) {
+        setMeasuredImages(results);
+        setIsMeasuring(false);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [images]);
+
+  const slides = useMemo(() => {
+    const columns = packGalleryColumns(measuredImages);
+    return chunkColumns(columns, COLUMNS_PER_SLIDE);
+  }, [measuredImages]);
 
   if (!isLoading && images.length === 0) return null;
+
+  const showSkeleton = isLoading || isMeasuring;
 
   return (
     <section className="w-full overflow-hidden bg-surface py-10">
       <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
-        {isLoading ? (
+        {showSkeleton ? (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 md:gap-4">
-            {Array.from({ length: IMAGES_PER_SLIDE }).map((_, index) => (
-              <Skeleton key={index} className="aspect-square rounded-image" />
+            {Array.from({ length: COLUMNS_PER_SLIDE }).map((_, index) => (
+              <Skeleton
+                key={index}
+                className="min-h-[22rem] rounded-image md:min-h-[26rem]"
+              />
             ))}
           </div>
         ) : (
@@ -149,12 +291,12 @@ export default function HomeGallerySection() {
             className="w-full"
           >
             <CarouselContent className="ml-0">
-              {slides.map((slideImages, index) => (
+              {slides.map((slideColumns, index) => (
                 <CarouselItem key={index} className="basis-full pl-0">
                   <GallerySlide
-                    images={slideImages}
+                    columns={slideColumns}
                     slideIndex={index}
-                    allImages={images}
+                    allImages={measuredImages}
                   />
                 </CarouselItem>
               ))}

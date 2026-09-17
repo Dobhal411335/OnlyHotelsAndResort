@@ -4,7 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useMotionValue, useSpring } from "framer-motion";
-import { Smile, Ticket, MapPinned, Users } from "lucide-react";
+import {
+  BedDouble,
+  Car,
+  Flower2,
+  MapPin,
+  MapPinned,
+  Smile,
+  Ticket,
+  UtensilsCrossed,
+  Users,
+  Wifi,
+} from "lucide-react";
 
 import { Container } from "@/components/common/Container";
 import { Section } from "@/components/common/Section";
@@ -16,6 +27,14 @@ const stats = [
   { icon: Ticket, value: 1500, suffix: "+", label: "Packages Sold" },
   { icon: MapPinned, value: 20, suffix: "+", label: "Destinations" },
   { icon: Users, value: 365, suffix: "+", label: "24X7 Support" },
+];
+
+const roomAmenities = [
+  { icon: BedDouble, label: "Spacious Rooms" },
+  { icon: Wifi, label: "High-Speed Wi-Fi" },
+  { icon: UtensilsCrossed, label: "Multi-Cuisine Restaurant" },
+  { icon: Car, label: "Easy Access" },
+  { icon: Flower2, label: "Peaceful Environment" },
 ];
 
 function formatStat(value) {
@@ -73,103 +92,124 @@ export function PhilosophyTrustSection() {
   }, []);
 
   return (
-    <Section spacing="xs" className="bg-background">
-      <Container>
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-          <h2 className="max-w-xl font-heading text-4xl leading-[1.15] text-heading md:text-5xl">
-            Crafted For Comfort, Designed For You
-          </h2>
-          <p className="max-w-md font-body text-md leading-[1.8] text-muted-foreground lg:text-right">
-            Your escape to timeless luxury.
-          </p>
-        </div>
+    <>
+      <Section spacing="sm" className="bg-background">
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="font-ui text-xs uppercase tracking-[0.28em] text-muted">
+              Your Perfect Stay Begins Here.
+            </p>
+            <h2 className="mt-5 font-heading text-3xl leading-[1.2] text-heading md:text-4xl lg:text-5xl">
+              Exceptional Hospitality, tailored services and the experience of
+              unique holidays
+            </h2>
+            <p className="mx-auto text-justify md:text-center mt-6 max-w-2xl font-body text-sm leading-[1.9] text-black md:text-base">
+              Experience the perfect blend of comfort, elegance, and warm
+              hospitality at our deluxe hotel. From thoughtfully designed rooms
+              and modern amenities to personalized service and a welcoming
+              atmosphere, we ensure every moment of your stay is relaxing and
+              memorable. Whether you are travelling for business or leisure, our
+              commitment to exceptional hospitality makes your stay truly
+              special.
+            </p>
+            <Link
+              href="/about-us"
+              className="mt-8 inline-flex h-11 items-center rounded-button bg-primary px-8 font-body text-sm text-primary-foreground transition-colors hover:bg-primary-hover"
+            >
+              Explore Our Story
+            </Link>
+          </div>
+        </Container>
+      </Section>
 
-        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] lg:gap-5">
-          <div className="grid grid-cols-2 gap-3">
-            {stats.map(({ icon: Icon, value, suffix, label }) => (
-              <div
-                key={label}
-                className="flex flex-col rounded-card bg-surface p-4 md:p-5"
-              >
-                <span className="inline-flex size-8 items-center justify-center rounded-full border border-primary/40 text-primary">
-                  <Icon
-                    className="size-3.5"
-                    strokeWidth={1.5}
-                    aria-hidden="true"
-                  />
-                </span>
-                <p className="mt-4 font-heading text-2xl font-semibold tracking-tight text-heading md:text-3xl">
-                  <AnimatedStatNumber value={value} suffix={suffix} />
+      <Section spacing="sm" className="bg-background">
+        <Container>
+          <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-8 xl:gap-10">
+            {/* Left column */}
+            <div className="flex flex-col">
+              <p className="font-ui text-xs uppercase tracking-[0.25em] text-muted">
+                About US
+              </p>
+              <h2 className="mt-4 font-heading text-4xl leading-[1.12] text-heading md:text-5xl xl:text-[3.25rem]">
+                Where Warm Hospitality Meets{" "}
+                <em className="italic text-primary">Timeless Experiences</em>
+              </h2>
+
+              <div className="mt-5 space-y-4 text-justify text-sm leading-[1.85] text-black">
+                <p className="text-black">
+                  Experience warm hospitality, comfortable stays, and thoughtful
+                  service in a welcoming atmosphere. Enjoy freshly prepared
+                  flavors at our multi-cuisine restaurant, offering delightful
+                  meals from breakfast to dinner.
                 </p>
-                <p className="mt-1.5 font-body text-sm text-muted-foreground">
-                  {label}
+                <p className="text-black">
+                  Ideally located near the city&apos;s fascinating attractions,
+                  temples, sacred ghats, vibrant local markets, and peaceful
+                  spiritual spaces, we invite you to explore the timeless charm
+                  and rich culture of this holy city.
                 </p>
               </div>
-            ))}
-          </div>
 
-          <div className="grid grid-cols-1 items-center gap-4 rounded-card bg-surface p-4 md:grid-cols-2 md:gap-4 md:p-4">
-            <div className="relative flex flex-col justify-between gap-4 p-1 ">
-              <div>
-                <h3 className="font-heading text-xl leading-snug text-heading md:text-2xl">
-                  Where sacred tradition meets modern warmth.{" "}
-                </h3>
-                <p className="mt-3 font-body text-justify text-sm leading-[1.7] text-black">
-                  Nestled in the heart of the city, we welcome you with genuine
-                  hospitality just moments away from its most fascinating
-                  landmarks. Discover ancient temples, sacred ghats, serene
-                  riverside walks, and vibrant local markets, or spark your
-                  spirit of adventure with nearby outdoor excursions.
-                  <br />
-                  Wander through historic lanes, immerse yourself in timeless
-                  culture, and let us make your journey unforgettable.
-                </p>
-                <Link
-                  href="/contact"
-                  className="mt-4 inline-flex h-10 items-center rounded-button bg-primary px-6 font-body text-sm text-primary-foreground transition-colors hover:bg-primary-hover"
-                >
-                  Learn More
-                </Link>
-              <div
-                className="pointer-events-none flex justify-end"
-                aria-hidden="true"
-              >
-                <div className="relative flex size-16 items-center justify-center rounded-full border border-primary text-primary md:size-20">
-                  <svg
-                    viewBox="0 0 100 100"
-                    className="absolute inset-0 size-full animate-[spin_18s_linear_infinite]"
+              <div className="mt-8 grid flex-1 grid-cols-1 gap-3 sm:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:gap-4">
+                <div className="grid grid-cols-2 gap-3">
+                  {stats.map(({ icon: Icon, value, suffix, label }) => (
+                    <div
+                      key={label}
+                      className="flex flex-col rounded-card bg-surface p-3.5 md:p-4 border"
+                    >
+                      <span className="inline-flex size-7 items-center justify-center rounded-full border border-primary/35 text-primary">
+                        <Icon
+                          className="size-3.5"
+                          strokeWidth={1.5}
+                          aria-hidden="true"
+                        />
+                      </span>
+                      <p className="mt-3 font-heading text-xl font-semibold tracking-tight text-heading md:text-2xl">
+                        <AnimatedStatNumber value={value} suffix={suffix} />
+                      </p>
+                      <p className="mt-1 font-body text-xs text-muted-foreground md:text-sm">
+                        {label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col justify-between rounded-card bg-surface p-4 md:p-5">
+                  <div>
+                    <h3 className="font-heading text-lg leading-snug text-heading md:text-2xl">
+                      Where sacred tradition meets modern warmth.
+                    </h3>
+                    <p className="mt-3 font-body text-sm leading-[1.75] text-black">
+                      Nestled in the heart of the city, we welcome you with
+                      genuine hospitality just moments away from its most
+                      fascinating landmarks. Discover ancient temples, sacred
+                      ghats, serene riverside walks, and vibrant local markets.
+                    </p>
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="mt-5 inline-flex h-10 w-fit items-center rounded-button bg-primary px-6 font-body text-sm text-primary-foreground transition-colors hover:bg-primary-hover"
                   >
-                    <defs>
-                      <path
-                        id="trust-seal-path"
-                        d="M 50,50 m -36,0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0"
-                      />
-                    </defs>
-                    <text className="fill-primary font-ui text-[9px] uppercase tracking-[0.28em]">
-                      <textPath href="#trust-seal-path" startOffset="0%">
-                        Nature · Stay · Explore · Journey · Welcome ·
-                      </textPath>
-                    </text>
-                  </svg>
-                  <span className="font-heading text-base italic md:text-lg">OH</span>
+                    Learn More
+                  </Link>
                 </div>
               </div>
-              </div>
-
             </div>
 
-            <div className="relative mx-auto aspect-square w-full max-w-72 overflow-hidden rounded-image md:max-w-none">
+            {/* Right column — full image */}
+            <div className="relative min-h-[28rem] overflow-hidden rounded-image lg:min-h-full">
               <Image
                 src={trustImage}
-                alt="Guests enjoying a warm hotel stay"
+                alt="Deluxe luxury room"
                 fill
                 className="object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 28vw"
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                priority={false}
               />
             </div>
           </div>
-        </div>
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </>
   );
 }

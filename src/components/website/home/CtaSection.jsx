@@ -279,27 +279,6 @@ export function CtaSection() {
                     sizes="(max-width: 1024px) 80vw, 28vw"
                   />
                 </div>
-
-                {/* Curved caption */}
-                <div
-                  className="pointer-events-none absolute -bottom-2 -left-8 size-36 sm:-left-10 sm:size-40"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 100 100" className="size-full">
-                    <defs>
-                      <path
-                        id="how-it-works-arc"
-                        d="M 12,58 A 38,38 0 0,1 88,58"
-                        fill="none"
-                      />
-                    </defs>
-                    <text className="fill-heading font-ui text-[8px] uppercase tracking-[0.32em]">
-                      <textPath href="#how-it-works-arc" startOffset="0%">
-                        Enjoy · Stay · Relax · Welcome ·
-                      </textPath>
-                    </text>
-                  </svg>
-                </div>
               </div>
 
               {/* Floating help card */}
@@ -338,7 +317,7 @@ export function CtaSection() {
                       className={`flex items-start gap-4 rounded-card p-5 md:gap-5 md:p-6 ${tone}`}
                     >
                       <span
-                        className={`flex size-12 shrink-0 items-center justify-center rounded-full bg-surface shadow-sm ${iconTone}`}
+                        className={`flex size-12 shrink-0 items-center justify-center rounded-full border border-gray-500 bg-surface shadow-sm ${iconTone}`}
                       >
                         <Icon
                           className="size-5"
@@ -347,10 +326,10 @@ export function CtaSection() {
                         />
                       </span>
                       <div className="min-w-0 pt-0.5">
-                        <h3 className="font-heading text-lg leading-snug text-heading md:text-xl">
+                        <h3 className="font-heading text-lg leading-snug text-black md:text-xl">
                           {title}
                         </h3>
-                        <p className="mt-2 font-body text-sm leading-relaxed text-muted-foreground">
+                        <p className="mt-2 font-body text-sm leading-relaxed text-black">
                           {description}
                         </p>
                       </div>

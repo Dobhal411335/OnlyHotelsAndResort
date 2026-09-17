@@ -42,17 +42,17 @@ export function PromotionalBannersSection() {
   if (!showPromo) return null;
 
   return (
-    <Section spacing="sm" className="bg-background w-full">
+    <Section spacing="xs" className="bg-background w-full">
       <div className="mx-auto w-full max-w-[2000px] px-2 md:px-8 lg:px-12">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
+        <div className="mx-auto mb-8 max-w-2xl text-center">
           <p className="font-ui text-xs uppercase tracking-[0.25em] text-gray-600">
             Discover
           </p>
-          <h2 className="mt-5 font-heading text-4xl leading-[1.15] text-heading md:text-5xl">
+          <h2 className="mt-4 font-heading text-4xl leading-[1.15] text-heading md:text-5xl">
             Quiet invitations to{" "}
             <em className="italic text-primary">pause</em>.
           </h2>
-          <p className="mx-auto mt-5 max-w-lg font-body text-base leading-[1.9] text-foreground">
+          <p className="mx-auto mt-4 max-w-lg font-body text-base leading-[1.9] text-foreground">
             A few curated openings — for the days you want stillness, soft
             light, and nothing asking more of you than presence.
           </p>
@@ -63,7 +63,7 @@ export function PromotionalBannersSection() {
             {Array.from({ length: 2 }).map((_, idx) => (
               <Skeleton
                 key={idx}
-                className="w-full aspect-[4/3] rounded-md md:rounded-image"
+                className="aspect-16/10 w-full rounded-md md:rounded-image"
               />
             ))}
           </div>
@@ -79,23 +79,23 @@ export function PromotionalBannersSection() {
               {promotionalBanners.map((item) => (
                 <CarouselItem
                   key={item._id || item.title}
-                  className="pl-4 basis-full md:basis-1/3 md:pl-6"
+                  className="basis-full pl-4 md:basis-1/3 md:pl-6"
                 >
                   <Link
                     href={item.buttonLink || "#"}
                     target={item.buttonLink ? "_blank" : undefined}
                     rel={item.buttonLink ? "noopener noreferrer" : undefined}
-                    className="group relative block w-full aspect-[4/3] overflow-hidden rounded-image bg-border"
+                    className="group relative block aspect-16/10 w-full overflow-hidden rounded-image bg-border"
                   >
                     {item.image?.url ? (
                       <img
                         src={item.image.url}
                         alt={item.title || "Promotional banner"}
-                        className="block h-full w-full object-fill transition-transform duration-slow ease-smooth group-hover:scale-[1.03]"
+                        className="block h-full w-full object-cover transition-transform duration-slow ease-smooth group-hover:scale-[1.03]"
                       />
                     ) : null}
-                    <div className="absolute inset-0 flex items-end bg-image-dark/40 opacity-0 transition-opacity duration-[var(--duration-medium)] group-hover:opacity-100">
-                      <span className="m-6 inline-flex items-center gap-1.5 font-ui text-xs uppercase tracking-[0.2em] text-white">
+                    <div className="absolute inset-0 flex items-end bg-image-dark/40 opacity-0 transition-opacity duration-(--duration-medium) group-hover:opacity-100">
+                      <span className="m-5 inline-flex items-center gap-1.5 font-ui text-xs uppercase tracking-[0.2em] text-white">
                         Explore
                         <ArrowUpRight
                           className="size-3.5"

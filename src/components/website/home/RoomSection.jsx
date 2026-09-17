@@ -87,18 +87,22 @@ export default function RoomSection() {
             </div>
 
             {isLoadingRooms ? (
-              <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                 {Array.from({ length: 2 }).map((_, idx) => (
                   <div
                     key={idx}
-                    className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-4 md:flex-row md:p-5"
+                    className="overflow-hidden rounded-2xl border border-border bg-card"
                   >
-                    <Skeleton className="h-[240px] w-full rounded-xl md:h-[280px] md:w-[380px]" />
-                    <div className="flex flex-1 flex-col gap-3">
-                      <Skeleton className="h-8 w-1/2" />
+                    <Skeleton className="aspect-16/10 w-full rounded-none" />
+                    <div className="flex flex-col gap-3 p-4 md:p-5">
+                      <div className="flex gap-2">
+                        <Skeleton className="h-8 w-20 rounded-lg" />
+                        <Skeleton className="h-8 w-24 rounded-lg" />
+                      </div>
+                      <Skeleton className="h-7 w-3/4" />
                       <Skeleton className="h-4 w-full" />
                       <Skeleton className="h-4 w-4/5" />
-                      <Skeleton className="mt-auto h-11 w-28 self-end" />
+                      <Skeleton className="mt-2 h-11 w-full rounded-xl" />
                     </div>
                   </div>
                 ))}
