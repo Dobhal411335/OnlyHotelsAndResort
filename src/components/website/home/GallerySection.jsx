@@ -271,14 +271,14 @@ export default function HomeGallerySection() {
     <section className="w-full overflow-hidden bg-white py-10">
       <div className="mx-auto w-full max-w-8xl px-4 md:px-6">
         <div className="mb-10 ">
-          <p className="font-body text-sm text-heading md:text-base">
+          <p className="font-body text-sm text-heading md:text-base text-center">
             Glimpses of the luxury Sanctuary
           </p>
-          <h2 className="mt-3 font-heading text-3xl leading-[1.2] text-heading md:text-4xl lg:text-5xl">
+          <h2 className="mt-3 font-heading text-3xl leading-[1.2] text-heading md:text-4xl lg:text-5xl text-center">
             Moments of Peace{" "}
             <span className="text-primary">& Transformation</span>
           </h2>
-          <p className="mt-4 font-body text-sm leading-relaxed text-foreground md:text-base md:leading-[1.8]">
+          <p className="mt-4 font-body text-sm leading-relaxed text-foreground md:text-base md:leading-[1.8] text-center mx-auto max-w-3xl">
             Step into the serene world of luxurious and discover moments created
             for inner peace, mindful living, and meaningful transformation.
             Explore our tranquil meditation spaces, immersive yoga sessions,
