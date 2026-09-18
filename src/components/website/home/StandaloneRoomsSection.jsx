@@ -111,7 +111,7 @@ function StandaloneRoomCard({ item }) {
             <p className="font-ui text-[10px] uppercase tracking-[0.12em] text-muted">
               From
             </p>
-            <p className="font-heading text-lg leading-none text-heading">
+            <p className="font-base text-lg leading-none text-heading">
               {formatPrice(room.fromPrice)}
             </p>
           </div>
