@@ -279,6 +279,18 @@ export function CtaSection() {
                     sizes="(max-width: 1024px) 80vw, 28vw"
                   />
                 </div>
+
+                <div className="absolute bottom-50 -left-5 z-10 w-[55%] max-w-[14rem] -translate-x-1/2 overflow-hidden border border-white shadow-sm sm:bottom-12 sm:w-[48%] sm:max-w-[15rem]">
+                  <div className="relative aspect-square">
+                    <Image
+                      src="/ctas-small.jpeg"
+                      alt="Guests checking in at reception"
+                      fill
+                      className="object-cover object-[center_65%]"
+                      sizes="240px"
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Floating help card */}

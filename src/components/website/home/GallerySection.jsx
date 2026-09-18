@@ -269,7 +269,24 @@ export default function HomeGallerySection() {
 
   return (
     <section className="w-full overflow-hidden bg-white py-10">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
+      <div className="mx-auto w-full max-w-8xl px-4 md:px-6">
+        <div className="mb-10 ">
+          <p className="font-body text-sm text-heading md:text-base">
+            Glimpses of the luxury Sanctuary
+          </p>
+          <h2 className="mt-3 font-heading text-3xl leading-[1.2] text-heading md:text-4xl lg:text-5xl">
+            Moments of Peace{" "}
+            <span className="text-primary">& Transformation</span>
+          </h2>
+          <p className="mt-4 font-body text-sm leading-relaxed text-foreground md:text-base md:leading-[1.8]">
+            Step into the serene world of luxurious and discover moments created
+            for inner peace, mindful living, and meaningful transformation.
+            Explore our tranquil meditation spaces, immersive yoga sessions,
+            nourishing organic cuisine, soulful experiences, and the
+            breathtaking natural beauty of Himalya.
+          </p>
+        </div>
+
         {showSkeleton ? (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 md:gap-4">
             {Array.from({ length: COLUMNS_PER_SLIDE }).map((_, index) => (
