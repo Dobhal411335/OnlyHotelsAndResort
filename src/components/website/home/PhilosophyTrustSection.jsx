@@ -93,7 +93,7 @@ export function PhilosophyTrustSection() {
 
   return (
     <>
-      <Section spacing="sm" className="bg-background">
+      <Section spacing="sm" className="bg-white">
         <Container>
           <div className="mx-auto max-w-3xl text-center">
             <p className="font-ui text-xs uppercase tracking-[0.28em] text-muted">

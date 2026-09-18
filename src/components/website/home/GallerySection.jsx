@@ -268,7 +268,7 @@ export default function HomeGallerySection() {
   const showSkeleton = isLoading || isMeasuring;
 
   return (
-    <section className="w-full overflow-hidden bg-surface py-10">
+    <section className="w-full overflow-hidden bg-white py-10">
       <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
         {showSkeleton ? (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 md:gap-4">

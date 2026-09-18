@@ -78,7 +78,7 @@ export default function RandomTourPackageSection() {
       <PromotionalBannersSection />
  
        {showFeaturedPackages && (
-         <Section spacing="sm" className="bg-background">
+         <Section spacing="sm" className="bg-white">
            <Container>
              <div className="mb-12 max-w-xl">
                <p className="font-ui text-xs uppercase tracking-[0.25em] text-muted">

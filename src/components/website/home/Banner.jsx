@@ -68,7 +68,7 @@ export default function Banner() {
     <>
 
       {showPackages && (
-        <Section spacing="sm" className="bg-background overflow-hidden">
+        <Section spacing="sm" className="bg-white overflow-hidden">
           <Container>
             <div className="mb-12">
               <p className="font-ui text-xs uppercase tracking-[0.25em] text-muted">
@@ -195,10 +195,10 @@ export default function Banner() {
         </Section>
       )}
       {showBanners && (
-        <Section spacing="sm" className="bg-background w-full">
+        <Section spacing="sm" className="bg-white w-full">
           <div className="w-full">
             {bannersLoading ? (
-              <Skeleton className="h-[350px] px-2 w-full rounded-none md:h-[430px]" />
+              <Skeleton className="h-[350px] px-2 w-full rounded-none md:h-[450px]" />
             ) : (
               <div className="flex flex-col gap-8 w-full">
                 {bannerSection2nd.map((item) => (
@@ -209,7 +209,7 @@ export default function Banner() {
                     rel={item.buttonLink ? "noopener noreferrer" : undefined}
                     className="group relative block w-full overflow-hidden bg-border"
                   >
-                    <div className="relative hidden h-[300px] md:h-[430px] w-full md:block">
+                    <div className="relative hidden h-[300px] md:h-[400px] w-full md:block">
                       {item.image?.url ? (
                         <Image
                           src={item.image.url}

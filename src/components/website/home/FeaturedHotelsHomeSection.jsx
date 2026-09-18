@@ -46,7 +46,7 @@ export function FeaturedHotelsHomeSection() {
   if (!showHotels) return null;
 
   return (
-    <Section spacing="sm" className="bg-background overflow-hidden">
+    <Section spacing="sm" className="bg-white overflow-hidden">
       <Container>
         <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
